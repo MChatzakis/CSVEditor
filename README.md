@@ -1,2 +1,2 @@
 # CSVEditor
-CSVEditor is a lightweight CSV file modification answer, with purpose to be used for efficient data extraction from CSV files.
+CSVEditor is a lightweight CSV file modification library, with purpose to be used for efficient data extraction from CSV files.
