@@ -17,7 +17,7 @@ import utils.CommonUtils;
 
 /**
  * Main CSV class holding modification methods
- * 
+ *
  * @author Manos Chatzakis (chatzakis@ics.forth.gr)
  */
 @Data
@@ -35,12 +35,25 @@ public class CSV {
 
     public CSV(String filepath, String regex) throws FileNotFoundException {
         parsedLines = new ArrayList<>();
-        
+
         this.filepath = filepath;
         this.regex = regex;
-        
+
         csvFile = new File(filepath);
-        
+
+        if (!csvFile.exists()) {
+            throw new FileNotFoundException("The file given does not exist!");
+        }
+    }
+
+    public CSV(String filepath, String regex, int columnFrom, int columnTo, int rowFrom, int rowTo) throws FileNotFoundException {
+        parsedLines = new ArrayList<>();
+
+        this.filepath = filepath;
+        this.regex = regex;
+
+        csvFile = new File(filepath);
+
         if (!csvFile.exists()) {
             throw new FileNotFoundException("The file given does not exist!");
         }
