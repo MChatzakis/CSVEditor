@@ -18,13 +18,21 @@ public class Test {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
 
-        CSV csv = new CSV("input\\word_frequency_shakespeare.csv", ",");
-        
+        CSV csv = new CSV("input\\cities.csv", ",");
+
         csv.parse();
-        //csv.sort(1, SortOrder.REVERSED);
+        csv.sort(1, SortOrder.REVERSED);
+        csv.toFile();
+//        System.out.println(csv);
+        CSV c1 = csv.selectRows(0, 10);//System.out.println();
+        CSV c2 = csv.selectColumns(0, 1);//System.out.println();
+        CSV c3 = csv.selectColumnsRows(0, 10,0,1);
         
-        System.out.println(csv);
-      
+        //System.out.println(c1);
+        System.out.println("=================");
+       // System.out.println(c2);
+        System.out.println("=================");
+        System.out.println(c3);
 
     }
 }

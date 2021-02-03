@@ -68,23 +68,28 @@ public class CSV implements Cloneable {
         try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             String line;
             while ((line = br.readLine()) != null) {
-
-                rawLines.add(line);
+                if (counter >= rowFromTo.getKey() && counter <= rowFromTo.getValue()) {
+                    rawLines.add(line);
+                }
+                if (counter >= rowFromTo.getValue()) {
+                    break;
+                }
                 counter++;
-
             }
         }
         return rawLines;
     }
 
-    public CSV selectRows(int from, int to) {
+    public CSV selectRows(int from, int to) throws CloneNotSupportedException {
         ArrayList<CSVLine> selected = new ArrayList<>();
-        CSV csv =(CSV) this.clone();
+
+        CSV csv = (CSV) this.clone();
+
         for (int i = 0; i < parsedLines.size(); i++) {
-            if (i >= from && i <= to) {
+            if (i >= from && i < to) {
                 selected.add(parsedLines.get(i));
             }
-            if (i <= to) {
+            if (i >= to) {
                 break;
             }
         }
@@ -92,8 +97,9 @@ public class CSV implements Cloneable {
         return csv;
     }
 
-    public ArrayList<CSVLine> selectLines(int from, int to) {
+    public CSV selectColumns(int from, int to) throws CloneNotSupportedException {
         ArrayList<CSVLine> selected = new ArrayList<>();
+        CSV csv = (CSV) this.clone();
 
         for (int i = 0; i < parsedLines.size(); i++) {
             CSVLine line = new CSVLine();
@@ -101,24 +107,26 @@ public class CSV implements Cloneable {
             selected.add(line);
         }
 
-        return selected;
+        csv.setParsedLines(selected);
+        return csv;
     }
 
-    public ArrayList<CSVLine> selectLinesRows(int rowFrom, int rowTo, int columnFrom, int columnTo) {
+    public CSV selectColumnsRows(int rowFrom, int rowTo, int columnFrom, int columnTo) throws CloneNotSupportedException {
         ArrayList<CSVLine> selected = new ArrayList<>();
-
+        CSV csv = (CSV) this.clone();
         for (int i = 0; i < parsedLines.size(); i++) {
-            if (i >= rowFrom && i <= rowTo) {
+            if (i >= rowFrom && i < rowTo) {
                 CSVLine line = new CSVLine();
                 line.setLine(parsedLines.get(i).getColumns(columnFrom, columnTo));
                 selected.add(line);
             }
-            if (i <= rowTo) {
+            if (i >= rowTo) {
                 break;
             }
         }
 
-        return selected;
+        csv.setParsedLines(selected);
+        return csv;
     }
 
     public ArrayList<CSVLine> parse() throws IOException {
@@ -174,7 +182,15 @@ public class CSV implements Cloneable {
         return parsedLines;
     }
 
-    public void updateFile() {
+    public String toString() {
+        String output = "";
+        for (CSVLine cl : parsedLines) {
+            output += cl.toString();
+        }
+        return output;
+    }
+
+    public String toFile() {
         String output = "";
         try {
             FileWriter writer = new FileWriter(filepath, false);
@@ -189,12 +205,13 @@ public class CSV implements Cloneable {
             System.out.println("Error occured while writing to csv file.");
             e.printStackTrace();
         }
+        return filepath;
     }
 
-    public void createNewFile(String filepath) {
+    public String toFile(String filepath) {
         String output = "";
         try {
-            FileWriter writer = new FileWriter(filepath);
+            FileWriter writer = new FileWriter(filepath, false);
 
             output += this.toString();
 
@@ -206,14 +223,7 @@ public class CSV implements Cloneable {
             System.out.println("Error occured while writing to csv file.");
             e.printStackTrace();
         }
-    }
-
-    public String toString() {
-        String output = "";
-        for (CSVLine cl : parsedLines) {
-            output += cl.toString();
-        }
-        return output;
+        return filepath;
     }
 
     public Object clone() throws CloneNotSupportedException {
