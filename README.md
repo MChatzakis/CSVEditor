@@ -1,6 +1,6 @@
 # CSVEditor
 
-CSVEditor is a lightweight library, with purpose to be used as an efficient data extraction tool for CSV files.
+CSVEditor is a lightweight library with purpose to be used as an efficient data extraction tool for CSV files.
 
 ## Getting Started
 
@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-To use this library, Java Runtime Enviroment(JRE) and basic coding/shell experience is needed.
+To use this library, Java Runtime Enviroment (JRE) is required.
 
 ```
 C:\Users\manos>java -version
@@ -17,74 +17,61 @@ Java(TM) SE Runtime Environment (build 1.8.0_221-b11)
 Java HotSpot(TM) 64-Bit Server VM (build 25.221-b11, mixed mode)
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Java](https://www.java.com/en/) - Core Programming Language
+* [Maven](https://maven.apache.org/) - Dependency Management 
 
-## Contributing
+## Examples
+First need to do is instanciate the csv object:
+```
+CSV csv = new CSV("your_directory\\filename.csv", ",");
+```
+You can use every possible regex (here ","), but the default CSV file has data splitted with comma.
+After loading the file to the API, parsing is needed, so the data are splitted:
+```
+csv.parse(); /* Parses the csv file given */
+```
+Now we are ready to apply operations.
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+The API can sort the csv contents by a specific column (numeric or alphabetical) normally or inverted:
+```
+int columnSortBase = 1;
+SortOrder sortOrder = SortOrder.NORMAL /* or SortOrder.REVERSED */
+csv.sort(columnSortBase, sortOrder); /* Sort the csv file data */
+```
+CSVEditor checks if the given column contains Strings (thus, alphabetical sort) or numbers (thus, numeric sort).
 
-## Versioning
+Also, the API offers factory methods to select specific contents of the data. For example,
+```
+CSV c1 = csv.selectRows(0, 10); /* Select the first eleven rows of the file */
+CSV c2 = csv.selectColumns(0, 1); /* Select the first two columns of every row of the file */
+CSV c3 = csv.selectColumnsRows(0, 10, 0, 1); /* Select the first two columns of the first eleven rows of the file */
+```
+For simple data extraction of specidfic rows, CSVEditor can produce a new CSV file containing specific value attributes, given from the user, for example:
+```
+String atrr = "Retail";
+int correspondingColumn = 1;
+CSV c4 = csv.selectColumnsBy(correspondingColumn, atrr); /* Select all data that have the value "Retail" in column 1*/
+```
+Note that CSVEditor requires the column of the csv to dodge ambiguity.
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+Any time, you can print the csv file data:
+```
+System.out.println(csv);
+```
+
+Suppose that you are done with these operations and you want to save the file. You can use:
+```
+csv.toFile(); /* Updates the initial file with the current csv object data */
+csv.toFile("new_path\\filename.csv"); /* Creates new file and saves the current csv object data */
+```
 
 ## Authors
 
-* **Manos Chatzakis** - *Basic tool development* - [PurpleBooth](https://github.com/MChatzakis)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Manos Chatzakis** - *Basic development* - [Git Profile](https://github.com/MChatzakis)
 
 ## License
 
 This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for details
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
