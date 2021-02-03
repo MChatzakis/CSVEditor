@@ -11,7 +11,10 @@ These instructions will get you a copy of the project up and running on your loc
 To use this library, Java Runtime Enviroment(JRE) and basic coding/shell experience is needed.
 
 ```
-Give examples
+C:\Users\manos>java -version
+java version "1.8.0_221"
+Java(TM) SE Runtime Environment (build 1.8.0_221-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.221-b11, mixed mode)
 ```
 
 ### Installing
