@@ -32,6 +32,19 @@ After loading the file to the API, parsing is needed, so the data are splitted:
 ```
 csv.parse(); /* Parses the csv file givem */
 ```
+Now we are ready to apply operations.
+
+The API can sort the csv contents by a specific column (numeric or alphabetical) normally or inverted:
+```
+csv.parse(); /* Parses the csv file givem */
+```
+Also, the API offers factory methods to select specific contents of the data. For example,
+```
+CSV c1 = csv.selectRows(0, 10); /*Select the first eleven rows of the file*/
+CSV c2 = csv.selectColumns(0, 1); /*Select the first two columns of every row of the file*/
+CSV c3 = csv.selectColumnsRows(0, 10, 0, 1); /*Select the first two columns of the first eleven rows of the file*/
+```
+
 ## Authors
 
 * **Manos Chatzakis** - *Basic development* - [Git Profile](https://github.com/MChatzakis)
