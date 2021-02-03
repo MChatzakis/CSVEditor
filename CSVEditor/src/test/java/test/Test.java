@@ -9,6 +9,7 @@ import csv.CSV;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import sort.SortOrder;
+import utils.CommonUtils;
 
 /**
  *
@@ -18,19 +19,28 @@ public class Test {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
 
-        CSV csv = new CSV("input\\cities.csv", ",");
+        CSV csv = new CSV("input\\companies.csv", ",");
+
+        csv.toFile();
+        /* Updates the initial file with the current csv object data */
+        csv.toFile("new_path\\filename.csv");
+        /* Creates new file and saves the current csv object data */
 
         csv.parse();
-        csv.sort(1, SortOrder.REVERSED);
-        csv.toFile();
-//        System.out.println(csv);
-        CSV c1 = csv.selectRows(0, 10);//System.out.println();
-        CSV c2 = csv.selectColumns(0, 1);//System.out.println();
-        CSV c3 = csv.selectColumnsRows(0, 10,0,1);
-        
-        //System.out.println(c1);
+        csv.sort(2, SortOrder.REVERSED);
+        //CSV csv1 = csv.selectColumnsBy(1, "Retail");
+        //System.out.println(csv1);
+        CommonUtils.printMapOfArraylist(csv.groupCSVByColumn(1));
+
+        //csv.toFile();
+        //System.out.println(csv);
+        CSV c1 = csv.selectRows(0, 10);
+        CSV c2 = csv.selectColumns(0, 1);
+        CSV c3 = csv.selectColumnsRows(0, 10, 0, 1);
+
+        System.out.println(c1);
         System.out.println("=================");
-       // System.out.println(c2);
+        // System.out.println(c2);
         System.out.println("=================");
         System.out.println(c3);
 

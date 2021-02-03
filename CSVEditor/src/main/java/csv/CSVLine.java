@@ -9,7 +9,7 @@ import lombok.Data;
  * @author Manos Chatzakis (chatzakis@ics.forth.gr)
  */
 @Data
-class CSVLine {
+public class CSVLine {
 
     ArrayList<String> line = new ArrayList<>();
 
