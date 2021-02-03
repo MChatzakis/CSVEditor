@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+To use this library, Java Runtime Enviroment(JRE) and basic coding/shell experience is needed.
 
 ```
 Give examples
@@ -72,7 +72,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Manos Chatzakis** - *Basic tool development* - [PurpleBooth](https://github.com/MChatzakis)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
