@@ -51,9 +51,7 @@ CSV c3 = csv.selectColumnsRows(0, 10, 0, 1); /*Select the first two columns of t
 
 Any time, you can print the csv file data:
 ```
-CSV c1 = csv.selectRows(0, 10); /* Select the first eleven rows of the file */
-CSV c2 = csv.selectColumns(0, 1); /* Select the first two columns of every row of the file */
-CSV c3 = csv.selectColumnsRows(0, 10, 0, 1); /* Select the first two columns of the first eleven rows of the file */
+System.out.println(csv);
 ```
 
 Suppose that you are done with these operations and you want to save the file. You can use:
