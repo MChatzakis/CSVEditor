@@ -28,7 +28,8 @@ First need to do is instanciate the csv object:
 String filepath = "your_dir\\filename.csv"; /* The path to the csv file */
 String regex = ","; /* The selected delimeter */
 Boolean hasHeader = false; /* Determine if the first line will get special treatment from the API */
-CSV csv = new CSV(filepath,regex,hasHeader);
+
+CSV csv = new CSV(filepath,regex,hasHeader); /* Instanciate the object */
 ```
 You can use every possible regex (here ","), but the default CSV file has data splitted with comma.
 After loading the file to the API, parsing is needed, so the data are splitted:
