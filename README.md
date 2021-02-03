@@ -28,7 +28,10 @@ First need to do is instanciate the csv object:
 CSV csv = new CSV("your_directory\\filename.csv", ",");
 ```
 You can use every possible regex (here ","), but the default CSV file has data splitted with comma.
-
+After loading the file to the API, parsing is needed, so the data are splitted:
+```
+csv.parse(); /* Parses the csv file givem */
+```
 ## Authors
 
 * **Manos Chatzakis** - *Basic development* - [Git Profile](https://github.com/MChatzakis)
