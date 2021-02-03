@@ -25,7 +25,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.221-b11, mixed mode)
 ## Examples
 First need to do is instanciate the csv object:
 ```
-CSV csv = new CSV("your_directory\\filename.csv", ",");
+String filepath = "your_dir\\filename.csv"; /* The path to the csv file */
+String regex = ","; /* The selected delimeter */
+Boolean hasHeader = false; /* Determine if the first line will get special treatment from the API */
+CSV csv = new CSV(filepath,regex,hasHeader);
 ```
 You can use every possible regex (here ","), but the default CSV file has data splitted with comma.
 After loading the file to the API, parsing is needed, so the data are splitted:
