@@ -44,9 +44,9 @@ CSVEditor checks if the given column contains Strings (thus, alphabetical sort) 
 
 Also, the API offers factory methods to select specific contents of the data. For example,
 ```
-CSV c1 = csv.selectRows(0, 10); /*Select the first eleven rows of the file*/
-CSV c2 = csv.selectColumns(0, 1); /*Select the first two columns of every row of the file*/
-CSV c3 = csv.selectColumnsRows(0, 10, 0, 1); /*Select the first two columns of the first eleven rows of the file*/
+CSV c1 = csv.selectRows(0, 10); /* Select the first eleven rows of the file */
+CSV c2 = csv.selectColumns(0, 1); /* Select the first two columns of every row of the file */
+CSV c3 = csv.selectColumnsRows(0, 10, 0, 1); /* Select the first two columns of the first eleven rows of the file */
 ```
 For simple data extraction of specidfic rows, CSVEditor can produce a new CSV file containing specific value attributes, given from the user, for example:
 ```
