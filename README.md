@@ -52,8 +52,7 @@ For simple data extraction of specidfic rows, CSVEditor can produce a new CSV fi
 ```
 String atrr = "Retail";
 int correspondingColumn = 1;
-/* Select all data that have the value "Retail" in column 1*/
-CSV c4 = csv.selectColumnsBy(correspondingColumn, atrr);
+CSV c4 = csv.selectColumnsBy(correspondingColumn, atrr); /* Select all data that have the value "Retail" in column 1*/
 ```
 Note that CSVEditor requires the column of the csv to dodge ambiguity.
 
