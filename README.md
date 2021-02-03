@@ -24,45 +24,49 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.221-b11, mixed mode)
 
 ## Examples
 First need to do is instanciate the csv object:
-```
-CSV csv = new CSV("your_directory\\filename.csv", ",");
+``` java
+String filepath = "your_dir\\filename.csv"; /* The path to the csv file */
+String regex = ","; /* The selected delimeter */
+Boolean hasHeader = false; /* Determine if the first line will get special treatment from the API */
+
+CSV csv = new CSV(filepath,regex,hasHeader); /* Instanciate the object */
 ```
 You can use every possible regex (here ","), but the default CSV file has data splitted with comma.
 After loading the file to the API, parsing is needed, so the data are splitted:
-```
+``` java
 csv.parse(); /* Parses the csv file given */
 ```
 Now we are ready to apply operations.
 
 The API can sort the csv contents by a specific column (numeric or alphabetical) normally or inverted:
-```
-int columnSortBase = 1;
-SortOrder sortOrder = SortOrder.NORMAL /* or SortOrder.REVERSED */
-csv.sort(columnSortBase, sortOrder); /* Sort the csv file data */
+``` java
+int columnSortBase = 1; /* The sorting column */
+SortOrder sortOrder = SortOrder.NORMAL /* SortOrder.REVERSED can be used instead */
+csv.sort(columnSortBase, sortOrder); /* Sort the data */
 ```
 CSVEditor checks if the given column contains Strings (thus, alphabetical sort) or numbers (thus, numeric sort).
 
 Also, the API offers factory methods to select specific contents of the data. For example,
-```
+``` java
 CSV c1 = csv.selectRows(0, 10); /* Select the first eleven rows of the file */
 CSV c2 = csv.selectColumns(0, 1); /* Select the first two columns of every row of the file */
 CSV c3 = csv.selectColumnsRows(0, 10, 0, 1); /* Select the first two columns of the first eleven rows of the file */
 ```
 For simple data extraction of specidfic rows, CSVEditor can produce a new CSV file containing specific value attributes, given from the user, for example:
-```
-String atrr = "Retail";
-int correspondingColumn = 1;
+``` java
+String atrr = "Retail"; /* The selected attribute */
+int correspondingColumn = 1; /* The lookup column */
 CSV c4 = csv.selectColumnsBy(correspondingColumn, atrr); /* Select all data that have the value "Retail" in column 1*/
 ```
 Note that CSVEditor requires the column of the csv to dodge ambiguity.
 
 Any time, you can print the csv file data:
-```
+``` java
 System.out.println(csv);
 ```
 
 Suppose that you are done with these operations and you want to save the file. You can use:
-```
+``` java
 csv.toFile(); /* Updates the initial file with the current csv object data */
 csv.toFile("new_path\\filename.csv"); /* Creates new file and saves the current csv object data */
 ```
