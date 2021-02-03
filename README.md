@@ -50,9 +50,12 @@ CSV c3 = csv.selectColumnsRows(0, 10, 0, 1); /*Select the first two columns of t
 ```
 For simple data extraction of specidfic rows, CSVEditor can produce a new CSV file containing specific value attributes, given from the user, for example:
 ```
+String atrr = "Retail";
+int correspondingColumn = 1;
 /* Select all data that have the value "Retail" in column 1*/
-CSV c4 = csv.selectColumnsBy(1, "Retail");
+CSV c4 = csv.selectColumnsBy(correspondingColumn, atrr);
 ```
+Note that CSVEditor requires the column of the csv to dodge ambiguity.
 
 Any time, you can print the csv file data:
 ```
