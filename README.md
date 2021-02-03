@@ -36,13 +36,30 @@ Now we are ready to apply operations.
 
 The API can sort the csv contents by a specific column (numeric or alphabetical) normally or inverted:
 ```
-csv.parse(); /* Parses the csv file givem */
+int columnSortBase = 1;
+SortOrder sortOrder = SortOrder.NORMAL /* or SortOrder.REVERSED */
+csv.sort(columnSortBase, sortOrder); /* Sort the csv file data */
 ```
+CSVEditor checks if the given column contains Strings (thus, alphabetical sort) or numbers (thus, numeric sort).
+
 Also, the API offers factory methods to select specific contents of the data. For example,
 ```
 CSV c1 = csv.selectRows(0, 10); /*Select the first eleven rows of the file*/
 CSV c2 = csv.selectColumns(0, 1); /*Select the first two columns of every row of the file*/
 CSV c3 = csv.selectColumnsRows(0, 10, 0, 1); /*Select the first two columns of the first eleven rows of the file*/
+```
+
+Any time, you can print the csv file data:
+```
+CSV c1 = csv.selectRows(0, 10); /* Select the first eleven rows of the file */
+CSV c2 = csv.selectColumns(0, 1); /* Select the first two columns of every row of the file */
+CSV c3 = csv.selectColumnsRows(0, 10, 0, 1); /* Select the first two columns of the first eleven rows of the file */
+```
+
+Suppose that you are done with these operations and you want to save the file. You can use:
+```
+csv.toFile(); /* Updates the initial file with the current csv object data */
+csv.toFile("new_path\\filename.csv"); /* Creates new file and saves the current csv object data */
 ```
 
 ## Authors
