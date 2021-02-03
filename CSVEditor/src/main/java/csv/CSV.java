@@ -154,27 +154,24 @@ public class CSV implements Cloneable {
     }
 
     //ongoing
-    public Map<String, ArrayList<CSVLine>> groupCSVByColumn(int column) {
+    public Map<String, ArrayList<CSVLine>> groupCSVByColumn(int column) throws CloneNotSupportedException {
 
         Map<String, ArrayList<CSVLine>> csvMap = new HashMap<>();
         ArrayList<CSVLine> lines = new ArrayList<>();
+        ArrayList<String> attributes = new ArrayList<>();
 
         for (CSVLine line : parsedLines) {
-            lines.clear();
-            String value = line.getLine().get(column);
-
-            if (csvMap.containsKey(value)) {
-                continue;
+            String currAtr = line.getLine().get(column);
+            if (!attributes.contains(currAtr)) {
+                attributes.add(currAtr);
+                //System.out.println("Adding atr: " + currAtr);
             }
+        }
 
-            for (CSVLine currLine : parsedLines) {
-                String currValue = currLine.getLine().get(column);
-                if (value.equals(currValue)) {
-                    lines.add(currLine);
-                }
-            }
+        for (String atr : attributes) {
+            lines = selectColumnsBy(column, atr).getParsedLines();
+            csvMap.put(atr, lines);
 
-            csvMap.put(value, lines);
         }
 
         return csvMap;
@@ -192,7 +189,7 @@ public class CSV implements Cloneable {
             }
 
             if (hasHeader && counter == 0) {
-                
+
                 header = csvLine;
             } else {
                 parsedLines.add(csvLine);
@@ -285,11 +282,11 @@ public class CSV implements Cloneable {
 
     public String toString() {
         String output = "";
-        
-        if(hasHeader){
+
+        if (hasHeader) {
             output += header.toString();
         }
-        
+
         for (CSVLine cl : parsedLines) {
             output += cl.toString();
         }
