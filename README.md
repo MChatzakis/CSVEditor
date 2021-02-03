@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-To use this library, Java Runtime Enviroment(JRE) and basic coding/shell experience is needed.
+To use this library, Java Runtime Enviroment (JRE) is required.
 
 ```
 C:\Users\manos>java -version
