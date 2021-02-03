@@ -21,7 +21,7 @@ import utils.CommonUtils;
  * @author Manos Chatzakis (chatzakis@ics.forth.gr)
  */
 @Data
-public class CSV {
+public class CSV implements Cloneable {
 
     private String filepath;
     private String regex;
@@ -30,8 +30,8 @@ public class CSV {
 
     private ArrayList<CSVLine> parsedLines;
 
-    private Pair<Integer, Integer> columnToFrom;
-    private Pair<Integer, Integer> rowToFrom;
+    private Pair<Integer, Integer> columnFromTo;
+    private Pair<Integer, Integer> rowFromTo;
 
     public CSV(String filepath, String regex) throws FileNotFoundException {
         parsedLines = new ArrayList<>();
@@ -52,6 +52,9 @@ public class CSV {
         this.filepath = filepath;
         this.regex = regex;
 
+        this.rowFromTo = new Pair<Integer, Integer>(rowFrom, rowTo);
+        this.columnFromTo = new Pair<Integer, Integer>(columnFrom, columnTo);
+
         csvFile = new File(filepath);
 
         if (!csvFile.exists()) {
@@ -61,14 +64,61 @@ public class CSV {
 
     private ArrayList<String> read() throws IOException {
         ArrayList<String> rawLines = new ArrayList<>();
+        int counter = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                //line = line.replace(" ", "_");
+
                 rawLines.add(line);
+                counter++;
+
             }
         }
         return rawLines;
+    }
+
+    public CSV selectRows(int from, int to) {
+        ArrayList<CSVLine> selected = new ArrayList<>();
+        CSV csv =(CSV) this.clone();
+        for (int i = 0; i < parsedLines.size(); i++) {
+            if (i >= from && i <= to) {
+                selected.add(parsedLines.get(i));
+            }
+            if (i <= to) {
+                break;
+            }
+        }
+        csv.setParsedLines(selected);
+        return csv;
+    }
+
+    public ArrayList<CSVLine> selectLines(int from, int to) {
+        ArrayList<CSVLine> selected = new ArrayList<>();
+
+        for (int i = 0; i < parsedLines.size(); i++) {
+            CSVLine line = new CSVLine();
+            line.setLine(parsedLines.get(i).getColumns(from, to));
+            selected.add(line);
+        }
+
+        return selected;
+    }
+
+    public ArrayList<CSVLine> selectLinesRows(int rowFrom, int rowTo, int columnFrom, int columnTo) {
+        ArrayList<CSVLine> selected = new ArrayList<>();
+
+        for (int i = 0; i < parsedLines.size(); i++) {
+            if (i >= rowFrom && i <= rowTo) {
+                CSVLine line = new CSVLine();
+                line.setLine(parsedLines.get(i).getColumns(columnFrom, columnTo));
+                selected.add(line);
+            }
+            if (i <= rowTo) {
+                break;
+            }
+        }
+
+        return selected;
     }
 
     public ArrayList<CSVLine> parse() throws IOException {
@@ -141,7 +191,7 @@ public class CSV {
         }
     }
 
-    public void cerateNewFile(String filepath) {
+    public void createNewFile(String filepath) {
         String output = "";
         try {
             FileWriter writer = new FileWriter(filepath);
@@ -164,5 +214,9 @@ public class CSV {
             output += cl.toString();
         }
         return output;
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

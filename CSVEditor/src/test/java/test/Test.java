@@ -18,10 +18,10 @@ public class Test {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
 
-        CSV csv = new CSV("input\\cities.csv", ",");
+        CSV csv = new CSV("input\\word_frequency_shakespeare.csv", ",");
         
         csv.parse();
-        csv.sort(1, SortOrder.REVERSED);
+        //csv.sort(1, SortOrder.REVERSED);
         
         System.out.println(csv);
       
