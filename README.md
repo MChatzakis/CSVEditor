@@ -24,7 +24,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.221-b11, mixed mode)
 
 ## Examples
 First need to do is instanciate the csv object:
-```
+``` java
 String filepath = "your_dir\\filename.csv"; /* The path to the csv file */
 String regex = ","; /* The selected delimeter */
 Boolean hasHeader = false; /* Determine if the first line will get special treatment from the API */
