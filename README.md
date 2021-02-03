@@ -1,6 +1,6 @@
 # CSVEditor
 
-CSVEditor is a lightweight library, with purpose to be used as an efficient data extraction tool for CSV files.
+CSVEditor is a lightweight library with purpose to be used as an efficient data extraction tool for CSV files.
 
 ## Getting Started
 
@@ -67,8 +67,6 @@ Add additional notes about how to deploy this on a live system
 ## Authors
 
 * **Manos Chatzakis** - *Basic development* - [Git Profile](https://github.com/MChatzakis)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
