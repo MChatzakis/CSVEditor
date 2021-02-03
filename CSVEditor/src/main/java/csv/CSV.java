@@ -32,16 +32,20 @@ public class CSV implements Cloneable {
 
     private ArrayList<CSVLine> parsedLines;
 
+    private CSVLine header;
+
     private Pair<Integer, Integer> columnFromTo;
     private Pair<Integer, Integer> rowFromTo;
 
     private boolean isSelectingSpecific;
+    private boolean hasHeader;
 
-    public CSV(String filepath, String regex) throws FileNotFoundException {
+    public CSV(String filepath, String regex, boolean hasHeader) throws FileNotFoundException {
         parsedLines = new ArrayList<>();
 
         this.filepath = filepath;
         this.regex = regex;
+        this.hasHeader = hasHeader;
         this.isSelectingSpecific = false;
 
         this.rowFromTo = new Pair<Integer, Integer>(0, 0);
@@ -77,13 +81,7 @@ public class CSV implements Cloneable {
         try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                //if (isSelectingSpecific && counter >= rowFromTo.getKey() && counter <= rowFromTo.getValue()) {
                 rawLines.add(line);
-                //}
-
-                //if (counter >= rowFromTo.getValue() && isSelectingSpecific) {
-                //  break;
-                //}
                 counter++;
             }
         }
@@ -96,6 +94,7 @@ public class CSV implements Cloneable {
         CSV csv = (CSV) this.clone();
 
         for (int i = 0; i < parsedLines.size(); i++) {
+
             if (i >= from && i < to) {
                 selected.add(parsedLines.get(i));
             }
@@ -154,6 +153,7 @@ public class CSV implements Cloneable {
         return csv;
     }
 
+    //ongoing
     public Map<String, ArrayList<CSVLine>> groupCSVByColumn(int column) {
 
         Map<String, ArrayList<CSVLine>> csvMap = new HashMap<>();
@@ -182,21 +182,23 @@ public class CSV implements Cloneable {
 
     public ArrayList<CSVLine> parse() throws IOException {
         ArrayList<String> rawLines = read();
-
+        int counter = 0;
         for (String line : rawLines) {
-
             String[] prsLine = line.split(regex);
             CSVLine csvLine = new CSVLine();
 
             for (int i = 0; i < prsLine.length; i++) {
-                // if (i >= columnFromTo.getKey() && i <= columnFromTo.getValue() && isSelectingSpecific) {
                 csvLine.insertItem(prsLine[i]);
             }
-            // if (i >= columnFromTo.getValue() && isSelectingSpecific) {
-            //    break;
-            //}
 
-            parsedLines.add(csvLine);
+            if (hasHeader && counter == 0) {
+                
+                header = csvLine;
+            } else {
+                parsedLines.add(csvLine);
+            }
+
+            counter++;
         }
 
         return parsedLines;
@@ -213,19 +215,19 @@ public class CSV implements Cloneable {
             Collections.sort(parsedLines, new Comparator<CSVLine>() {
                 @Override
                 public int compare(CSVLine c1, CSVLine c2) {
-                   
+
                     String s1 = c1.getLine().get(compareColumn);
-                    if(!CommonUtils.isNumeric(s1)){
+                    if (!CommonUtils.isNumeric(s1)) {
                         s1 = "0";
                     }
                     String s2 = c2.getLine().get(compareColumn);
-                     if(!CommonUtils.isNumeric(s2)){
+                    if (!CommonUtils.isNumeric(s2)) {
                         s2 = "0";
                     }
-                     
+
                     Double d1 = Double.parseDouble(s1);
                     Double d2 = Double.parseDouble(s2);
-                    
+
                     return Double.compare(d1, d2);
                 }
             });
@@ -270,19 +272,24 @@ public class CSV implements Cloneable {
         return dd;
     }
 
-    public ArrayList<String> getColumn(int column){
-        ArrayList<String>data = new ArrayList<>();
-        
-         for (CSVLine line : parsedLines) {
+    public ArrayList<String> getColumn(int column) {
+        ArrayList<String> data = new ArrayList<>();
+
+        for (CSVLine line : parsedLines) {
             String s = line.getLine().get(column);
             data.add(s);
         }
 
         return data;
     }
-    
+
     public String toString() {
         String output = "";
+        
+        if(hasHeader){
+            output += header.toString();
+        }
+        
         for (CSVLine cl : parsedLines) {
             output += cl.toString();
         }

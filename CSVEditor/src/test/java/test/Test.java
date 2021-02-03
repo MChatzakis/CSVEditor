@@ -19,7 +19,7 @@ public class Test {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
 
-        CSV csv = new CSV("input\\companies.csv", ",");
+        CSV csv = new CSV("input\\companies.csv", ",",true);
 
         csv.toFile();
         /* Updates the initial file with the current csv object data */

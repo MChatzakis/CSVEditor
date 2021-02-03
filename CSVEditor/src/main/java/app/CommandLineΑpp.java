@@ -57,13 +57,13 @@ public class CommandLineΑpp {
         String filePath = cli.getOptionValue("f");
         String del = cli.getOptionValue("d");
 
-        CSV csv = new CSV(filePath, del);
+        /*CSV csv = new CSV(filePath, del);
         csv.parse();
         switch (cli.getOptionValue("o")) {
         case "sort":
             csv.sort(0, SortOrder.NORMAL);
             break;
-        }
+        }*/
 
     }
 

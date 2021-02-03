@@ -17,11 +17,10 @@ public class TimeMeasurements {
 
         long startTime = System.currentTimeMillis();
 
-        CSV csv = new CSV("input\\trans.csv", ",");
+        CSV csv = new CSV("input\\companies.csv", ",", true);
 
         csv.parse();
-        csv.sort(2, SortOrder.REVERSED);
-        //csv.toFile("test.csv");
+        csv.sort(0, SortOrder.NORMAL);
         
         long estimatedTime = System.currentTimeMillis() - startTime;
         long seconds = TimeUnit.MILLISECONDS.toSeconds(estimatedTime);
@@ -30,8 +29,13 @@ public class TimeMeasurements {
         System.out.println("Milliseconds: " + estimatedTime +  " ms");
         System.out.println("Seconds: " + seconds + " s");
         
-        System.out.println(csv.selectRows(0, 10));
 
+        System.out.println(csv);
+        //System.out.println(csv.selectRows(0, 10));
+    }
+    
+    public static void indicativeTests(){
+        
     }
 
 }
