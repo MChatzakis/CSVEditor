@@ -5,7 +5,7 @@ This project is still under construction.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Before you proceed, make sure that your local machine fulfills the following pretequisites.
 
 ### Prerequisites
 
@@ -17,6 +17,7 @@ java version "1.8.0_221"
 Java(TM) SE Runtime Environment (build 1.8.0_221-b11)
 Java HotSpot(TM) 64-Bit Server VM (build 25.221-b11, mixed mode)
 ```
+If JRE is installed, the project can be imported in any OS/IDE, both as jar and java project.
 
 ## Built With
 
