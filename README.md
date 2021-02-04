@@ -5,7 +5,7 @@ This project is still under construction.
 
 ## Getting Started
 
-Before you proceed, make sure that your local machine fulfills the following pretequisites.
+Before you proceed, make sure that your local machine fulfills the following prerequisites.
 
 ### Prerequisites
 
@@ -49,7 +49,7 @@ csv.sort(columnSortBase, sortOrder); /* Sort the data */
 ```
 CSVEditor checks if the given column contains Strings (thus, alphabetical sort) or numbers (thus, numeric sort).
 
-Also, the API offers factory methods to select specific contents of the data. These may be used to get specific csv row/column projection. For example,
+Also, the API offers factory methods to select specific contents of the data. These may be used to get specific csv row/column projection. For example:
 ``` java
 CSV c1 = csv.selectRows(0, 10); /* Select the first eleven rows of the file */
 CSV c2 = csv.selectColumns(0, 1); /* Select the first two columns of every row of the file */
