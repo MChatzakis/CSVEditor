@@ -24,7 +24,7 @@ public class CSVLine {
     public ArrayList<String> getColumns(int from, int to) {
         ArrayList<String> selected = new ArrayList<>();
         for (int i = 0; i < line.size(); i++) {
-            if (i >= from && i < to) {
+            if (i >= from && i <= to) {
                 selected.add(line.get(i));
             }
             if (i >= to) {

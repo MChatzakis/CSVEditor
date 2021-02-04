@@ -269,7 +269,7 @@ public class CSV implements Cloneable {
         return dd;
     }
 
-    public ArrayList<String> getColumn(int column) {
+    public ArrayList<String> getColumnAsString(int column) {
         ArrayList<String> data = new ArrayList<>();
 
         for (CSVLine line : parsedLines) {
