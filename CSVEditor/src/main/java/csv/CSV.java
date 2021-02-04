@@ -88,27 +88,23 @@ public class CSV implements Cloneable {
         return rawLines;
     }
 
-    public CSV selectRows(int from, int to) throws CloneNotSupportedException {
+    public void selectRows(int from, int to) throws CloneNotSupportedException {
         ArrayList<CSVLine> selected = new ArrayList<>();
-
-        CSV csv = (CSV) this.clone();
 
         for (int i = 0; i < parsedLines.size(); i++) {
 
-            if (i >= from && i < to) {
+            if (i >= from && i <= to) {
                 selected.add(parsedLines.get(i));
             }
             if (i >= to) {
                 break;
             }
         }
-        csv.setParsedLines(selected);
-        return csv;
+        this.setParsedLines(selected);
     }
 
-    public CSV selectColumns(int from, int to) throws CloneNotSupportedException {
+    public void selectColumns(int from, int to) {
         ArrayList<CSVLine> selected = new ArrayList<>();
-        CSV csv = (CSV) this.clone();
 
         for (int i = 0; i < parsedLines.size(); i++) {
             CSVLine line = new CSVLine();
@@ -116,13 +112,11 @@ public class CSV implements Cloneable {
             selected.add(line);
         }
 
-        csv.setParsedLines(selected);
-        return csv;
+        this.setParsedLines(selected);
     }
 
-    public CSV selectColumnsRows(int rowFrom, int rowTo, int columnFrom, int columnTo) throws CloneNotSupportedException {
+    public void selectColumnsRows(int rowFrom, int rowTo, int columnFrom, int columnTo) throws CloneNotSupportedException {
         ArrayList<CSVLine> selected = new ArrayList<>();
-        CSV csv = (CSV) this.clone();
         for (int i = 0; i < parsedLines.size(); i++) {
             if (i >= rowFrom && i < rowTo) {
                 CSVLine line = new CSVLine();
@@ -134,11 +128,10 @@ public class CSV implements Cloneable {
             }
         }
 
-        csv.setParsedLines(selected);
-        return csv;
+        this.setParsedLines(selected);
     }
 
-    public CSV selectColumnsBy(int column, String value) throws CloneNotSupportedException {
+    private CSV selectColumnsByValueTemp(int column, String value) throws CloneNotSupportedException {
         ArrayList<CSVLine> selected = new ArrayList<>();
         CSV csv = (CSV) this.clone();
 
@@ -152,8 +145,20 @@ public class CSV implements Cloneable {
         csv.setParsedLines(selected);
         return csv;
     }
+    
+    public void  selectColumnsByValue(int column, String value) throws CloneNotSupportedException {
+        ArrayList<CSVLine> selected = new ArrayList<>();
 
-    //ongoing
+        for (int i = 0; i < parsedLines.size(); i++) {
+            CSVLine currLine = parsedLines.get(i);
+            if (value.equals(currLine.getLine().get(column))) {
+                selected.add(currLine);
+            }
+        }
+
+        this.setParsedLines(selected);
+    }
+
     public Map<String, ArrayList<CSVLine>> groupCSVByColumn(int column) throws CloneNotSupportedException {
 
         Map<String, ArrayList<CSVLine>> csvMap = new HashMap<>();
@@ -169,7 +174,7 @@ public class CSV implements Cloneable {
         }
 
         for (String atr : attributes) {
-            lines = selectColumnsBy(column, atr).getParsedLines();
+            lines = selectColumnsByValueTemp(column, atr).getParsedLines();
             csvMap.put(atr, lines);
 
         }
@@ -280,6 +285,30 @@ public class CSV implements Cloneable {
         return data;
     }
 
+    public ArrayList<String> getColumn(int column){
+        return getColumnAsString(column);
+    }
+    
+    public Double getSumOfColumn(int column){
+        Double sum = 0.0;
+        
+        for(CSVLine line : parsedLines){
+            String col = line.getLine().get(column);
+            Double numCol = Double.parseDouble(col);
+            sum += numCol;
+        }
+        
+        return sum;
+    }
+    
+    public CSVLine getRow(int row){
+        return parsedLines.get(row);
+    }
+    
+    public void addRow(CSVLine newRow){
+        parsedLines.add(newRow);
+    }
+    
     public String toString() {
         String output = "";
 

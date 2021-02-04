@@ -16,21 +16,22 @@ import utils.CommonUtils;
 public class TimeMeasurements {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, CloneNotSupportedException {
+        test();
         //indicativeTests();
-        randomTests();
+        //randomTests();
     }
 
     public static void indicativeTests() throws FileNotFoundException, IOException, CloneNotSupportedException {
         long startTime = System.currentTimeMillis();
 
-        CSV csv = new CSV("input\\EarthquakesCrete_1922-2019_withMonthYearBigOnes.csv", ",", false);
+        CSV csv = new CSV("input\\cities.csv", ",", false);
 
         csv.parse();
         csv.sort(8, SortOrder.REVERSED);
 
         //csv.groupCSVByColumn(1);
         //CommonUtils.printMapOfArraylist(csv.groupCSVByColumn(1));
-        CSV c1 = csv.selectColumns(0, 2);
+        //CSV c1 = csv.selectColumns(0, 2);
         csv.sort(1, SortOrder.NORMAL);
 
         long estimatedTime = System.currentTimeMillis() - startTime;
@@ -47,16 +48,30 @@ public class TimeMeasurements {
     public static void randomTests() throws FileNotFoundException, IOException, CloneNotSupportedException {
         CSV csv = new CSV("input\\EarthquakesCrete_1922-2019_withMonthYearBigOnes.csv", ",", false);
         csv.parse();
-        
-        ArrayList<Integer>asInt = csv.getColumnAsInt(2);
+
+        ArrayList<Integer> asInt = csv.getColumnAsInt(2);
         System.out.println(asInt);
-        
-        ArrayList<Double>asDouble = csv.getColumnAsDouble(1);
+
+        ArrayList<Double> asDouble = csv.getColumnAsDouble(1);
         System.out.println(asDouble);
-        
-        ArrayList<String>asString = csv.getColumnAsString(0);
+
+        ArrayList<String> asString = csv.getColumnAsString(0);
         System.out.println(asString);
+
+    }
+
+    public static void test() throws FileNotFoundException, FileNotFoundException, IOException, CloneNotSupportedException {
+        CSV csv = new CSV("input\\test\\cities.csv", ",", false);
+
+        csv.parse();
+        csv.sort(1, SortOrder.REVERSED);
+
+        csv.sort(0, SortOrder.NORMAL);
         
+        csv.selectColumns(0, 0);
+        csv.selectRows(0,10);
+        
+        System.out.println(csv);
     }
 
 }
