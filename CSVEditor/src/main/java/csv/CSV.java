@@ -14,8 +14,10 @@ import java.util.Map;
 import javafx.util.Pair;
 
 import lombok.Data;
+import sort.NumberColumnComparator;
 import sort.SortOrder;
 import sort.SortType;
+import sort.StringColumnComparator;
 import utils.CommonUtils;
 
 /**
@@ -146,8 +148,8 @@ public class CSV implements Cloneable {
         csv.setParsedLines(selected);
         return csv;
     }
-    
-    public void  selectColumnsByValue(int column, String value) throws CloneNotSupportedException {
+
+    public void selectColumnsByValue(int column, String value) throws CloneNotSupportedException {
         ArrayList<CSVLine> selected = new ArrayList<>();
 
         for (int i = 0; i < parsedLines.size(); i++) {
@@ -207,16 +209,24 @@ public class CSV implements Cloneable {
         return parsedLines;
     }
 
-    public void sort(int compareColumn, SortOrder so, SortType st){
-        switch(st){
+    public void sort(int compareColumn, SortOrder so, SortType st) {
+
+        boolean reverse = false;
+
+        if (so == SortOrder.REVERSED) {
+            reverse = true;
+        }
+
+        switch (st) {
         case NUMERIC:
-            
+            Collections.sort(parsedLines, new NumberColumnComparator(compareColumn, reverse));
             break;
-        case APLHABETIC:        
+        case ALPHABETIC:
+            Collections.sort(parsedLines, new StringColumnComparator(compareColumn, reverse));
             break;
         }
     }
-    
+
     public void sort(int compareColumn, SortOrder so) {
 
         String s1 = parsedLines.get(0).getLine().get(compareColumn);
@@ -260,7 +270,7 @@ public class CSV implements Cloneable {
             Collections.reverse(parsedLines);
         }
 
-        return parsedLines;
+        // return parsedLines;
     }
 
     public ArrayList<Integer> getColumnAsInt(int column) {
@@ -296,30 +306,30 @@ public class CSV implements Cloneable {
         return data;
     }
 
-    public ArrayList<String> getColumn(int column){
+    public ArrayList<String> getColumn(int column) {
         return getColumnAsString(column);
     }
-    
-    public Double getSumOfColumn(int column){
+
+    public Double getSumOfColumn(int column) {
         Double sum = 0.0;
-        
-        for(CSVLine line : parsedLines){
+
+        for (CSVLine line : parsedLines) {
             String col = line.getLine().get(column);
             Double numCol = Double.parseDouble(col);
             sum += numCol;
         }
-        
+
         return sum;
     }
-    
-    public CSVLine getRow(int row){
+
+    public CSVLine getRow(int row) {
         return parsedLines.get(row);
     }
-    
-    public void addRow(CSVLine newRow){
+
+    public void addRow(CSVLine newRow) {
         parsedLines.add(newRow);
     }
-    
+
     public String toString() {
         String output = "";
 

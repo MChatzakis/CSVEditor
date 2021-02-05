@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import sort.SortOrder;
+import sort.SortType;
 import utils.CommonUtils;
 
 /**
@@ -16,9 +17,10 @@ import utils.CommonUtils;
 public class TimeMeasurements {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, CloneNotSupportedException {
-        test();
+        //test();
         //indicativeTests();
         //randomTests();
+        comparisons();
     }
 
     public static void indicativeTests() throws FileNotFoundException, IOException, CloneNotSupportedException {
@@ -61,17 +63,24 @@ public class TimeMeasurements {
     }
 
     public static void test() throws FileNotFoundException, FileNotFoundException, IOException, CloneNotSupportedException {
-        CSV csv = new CSV("input\\test\\cities.csv", ",", false);
+        CSV csv = new CSV("input\\test\\cretanEr.csv", ",", false);
 
         csv.parse();
         csv.sort(1, SortOrder.REVERSED);
 
         csv.sort(0, SortOrder.NORMAL);
-        
+
         csv.selectColumns(0, 0);
-        csv.selectRows(0,10);
-        
+        csv.selectRows(0, 10);
+
         System.out.println(csv);
     }
 
+    public static void comparisons() throws FileNotFoundException, IOException {
+        CSV csv = new CSV("input\\test\\cretanEr.csv", ",", false);
+        csv.parse();
+        csv.sort(8, SortOrder.REVERSED, SortType.NUMERIC);
+        csv.toFile("sorted.csv");
+        System.out.println(csv);
+    }
 }

@@ -11,5 +11,5 @@ package sort;
  */
 public enum SortType {
     NUMERIC,
-    ARITHMETIC
+    ALPHABETIC
 }
