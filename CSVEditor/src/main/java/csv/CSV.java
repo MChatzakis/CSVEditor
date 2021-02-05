@@ -206,7 +206,9 @@ public class CSV implements Cloneable {
         return parsedLines;
     }
 
-    public ArrayList<CSVLine> sort(int compareColumn, SortOrder so) {
+    public void sort
+    
+    public void sort(int compareColumn, SortOrder so) {
 
         String s1 = parsedLines.get(0).getLine().get(compareColumn);
         String s2 = parsedLines.get(0).getLine().get(compareColumn);
