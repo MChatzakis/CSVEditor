@@ -15,6 +15,7 @@ import javafx.util.Pair;
 
 import lombok.Data;
 import sort.SortOrder;
+import sort.SortType;
 import utils.CommonUtils;
 
 /**
@@ -206,7 +207,15 @@ public class CSV implements Cloneable {
         return parsedLines;
     }
 
-    public void sort
+    public void sort(int compareColumn, SortOrder so, SortType st){
+        switch(st){
+        case NUMERIC:
+            
+            break;
+        case APLHABETIC:        
+            break;
+        }
+    }
     
     public void sort(int compareColumn, SortOrder so) {
 
