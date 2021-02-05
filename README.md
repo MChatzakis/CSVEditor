@@ -43,26 +43,47 @@ Now we are ready to apply operations.
 The API can sort the csv contents by a specific column (numeric or alphabetical) normally or inverted:
 ``` java
 int columnSortBase = 1; /* The sorting column */
-SortOrder sortOrder = SortOrder.NORMAL /* SortOrder.REVERSED can be used instead */
+SortOrder sortOrder = SortOrder.NORMAL; /* SortOrder.REVERSED can be used instead */
+SortType sortType = SortOrder.NUMERIC; /* SortOrder.ALPHABETIC can be used instead */
+
+csv.sort(columnSortBase, sortOrder, sortType); /* Sort the data */
+```
+A automatic sort detection method is offered, which takes the first value of the column and sorts the file based of its type, but it is unsafe for files that contain both numbers and strings. You may use it properly:
+``` java
+int columnSortBase = 1; /* The sorting column */
+SortOrder sortOrder = SortOrder.NORMAL; /* SortOrder.REVERSED can be used instead */
 
 csv.sort(columnSortBase, sortOrder); /* Sort the data */
 ```
-CSVEditor checks if the given column contains Strings (thus, alphabetical sort) or numbers (thus, numeric sort).
 
 Also, the API offers factory methods to select specific contents of the data. These may be used to get specific csv row/column projection. For example:
 ``` java
-CSV c1 = csv.selectRows(0, 10); /* Select the first eleven rows of the file */
-CSV c2 = csv.selectColumns(0, 1); /* Select the first two columns of every row of the file */
-CSV c3 = csv.selectColumnsRows(0, 10, 0, 1); /* Select the first two columns of the first eleven rows of the file */
+csv.selectRows(0, 10); /* Select the first eleven rows of the file */
+csv.selectColumns(0, 1); /* Select the first two columns of every row of the file */
+csv.selectColumnsRows(0, 10, 0, 1); /* Select the first two columns of the first eleven rows of the file */
 ```
+CSVEditor has Factory methods to select rows/columns which can be used to select columns/rows from the file without changing it:
+``` java
+CSV c1 = CSVFactory.selectCSVRowFactory(csv, 0, 10); /* Select the first eleven rows of the file for the new CSV */
+CSV c2 = CSVFactory.selectCSVColumnFactory(csv, 0, 1); /* Select the first two columns of every row of the file for the new CSV */
+CSV c3 = CSVFactory.selectCSVColumnRowFactory(csv, 0, 1, 0, 10);  /* Select the first two columns of the first eleven rows of the file for the new CSV */
+```
+
 For simple data extraction of specidfic rows, CSVEditor can produce a new CSV file containing specific value attributes, given from the user, for example:
 ``` java
 String atrr = "Retail"; /* The selected attribute */
 int correspondingColumn = 1; /* The lookup column */
 
-CSV c4 = csv.selectColumnsBy(correspondingColumn, atrr); /* Select all data that have the value "Retail" in column 1*/
+csv.selectColumnsBy(correspondingColumn, atrr); /* Select all data that have the value "Retail" in column 1*/
 ```
 Note that CSVEditor requires the column of the csv to dodge ambiguity.
+Also, there are also factory methods to group the columns:
+``` java
+String atrr = "Retail"; /* The selected attribute */
+int correspondingColumn = 1; /* The lookup column */
+
+CSV c4 = CSVFactory.selectCSVRowsByValueFactory(csv, 1, "Retail");; /* Select all data that have the value "Retail" in column 1 and put it to a new CSV */
+```
 
 Any time, you can print the csv file data:
 ``` java
