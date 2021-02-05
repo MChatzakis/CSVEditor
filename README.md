@@ -82,7 +82,7 @@ Also, there are also factory methods to group the columns:
 String atrr = "Retail"; /* The selected attribute */
 int correspondingColumn = 1; /* The lookup column */
 
-CSV c4 = CSVFactory.selectCSVRowsByValueFactory(csv, 1, "Retail");; /* Select all data that have the value "Retail" in column 1 and put it to a new CSV */
+CSV c4 = CSVFactory.selectCSVRowsByValueFactory(csv, 1, "Retail"); /* Select all data that have the value "Retail" in column 1 and put it to a new CSV */
 ```
 
 Any time, you can print the csv file data:
