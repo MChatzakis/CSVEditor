@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.util.Pair;
@@ -91,7 +90,7 @@ public class CSV implements Cloneable {
         return rawLines;
     }
 
-    public void selectRows(int from, int to) throws CloneNotSupportedException {
+    public void selectRows(int from, int to) {
         ArrayList<CSVLine> selected = new ArrayList<>();
 
         for (int i = 0; i < parsedLines.size(); i++) {
@@ -121,7 +120,7 @@ public class CSV implements Cloneable {
     public void selectColumnsRows(int rowFrom, int rowTo, int columnFrom, int columnTo) throws CloneNotSupportedException {
         ArrayList<CSVLine> selected = new ArrayList<>();
         for (int i = 0; i < parsedLines.size(); i++) {
-            if (i >= rowFrom && i < rowTo) {
+            if (i >= rowFrom && i <= rowTo) {
                 CSVLine line = new CSVLine();
                 line.setLine(parsedLines.get(i).getColumns(columnFrom, columnTo));
                 selected.add(line);
@@ -230,47 +229,14 @@ public class CSV implements Cloneable {
     public void sort(int compareColumn, SortOrder so) {
 
         String s1 = parsedLines.get(0).getLine().get(compareColumn);
-        String s2 = parsedLines.get(0).getLine().get(compareColumn);
 
-        boolean comparingNumbers = CommonUtils.isNumeric(s1) && CommonUtils.isNumeric(s2);
+        boolean comparingNumbers = CommonUtils.isNumeric(s1);
 
         if (comparingNumbers) {
-            Collections.sort(parsedLines, new Comparator<CSVLine>() {
-                @Override
-                public int compare(CSVLine c1, CSVLine c2) {
-
-                    String s1 = c1.getLine().get(compareColumn);
-                    if (!CommonUtils.isNumeric(s1)) {
-                        s1 = "0";
-                    }
-                    String s2 = c2.getLine().get(compareColumn);
-                    if (!CommonUtils.isNumeric(s2)) {
-                        s2 = "0";
-                    }
-
-                    Double d1 = Double.parseDouble(s1);
-                    Double d2 = Double.parseDouble(s2);
-
-                    return Double.compare(d1, d2);
-                }
-            });
-
+            this.sort(compareColumn, so, SortType.NUMERIC);
         } else {
-            Collections.sort(parsedLines, new Comparator<CSVLine>() {
-                @Override
-                public int compare(CSVLine c1, CSVLine c2) {
-                    String s1 = c1.getLine().get(compareColumn);
-                    String s2 = c2.getLine().get(compareColumn);
-                    return s1.compareTo(s2);
-                }
-            });
+            this.sort(compareColumn, so, SortType.ALPHABETIC);
         }
-
-        if (so == SortOrder.REVERSED) {
-            Collections.reverse(parsedLines);
-        }
-
-        // return parsedLines;
     }
 
     public ArrayList<Integer> getColumnAsInt(int column) {
@@ -312,13 +278,7 @@ public class CSV implements Cloneable {
 
     public Double getSumOfColumn(int column) {
         Double sum = 0.0;
-
-        for (CSVLine line : parsedLines) {
-            String col = line.getLine().get(column);
-            Double numCol = Double.parseDouble(col);
-            sum += numCol;
-        }
-
+       
         return sum;
     }
 
@@ -382,4 +342,8 @@ public class CSV implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+    
+     /*public static Person max(Person x, Person y) {
+        return x.getAge() > y.getAge() ? x : y;
+    }*/
 }

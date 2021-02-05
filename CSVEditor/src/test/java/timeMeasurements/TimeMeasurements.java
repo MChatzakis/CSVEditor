@@ -1,6 +1,7 @@
 package timeMeasurements;
 
 import csv.CSV;
+import csv.CSVFactory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +21,8 @@ public class TimeMeasurements {
         //test();
         //indicativeTests();
         //randomTests();
-        comparisons();
+        //comparisons();
+        completeTest();
     }
 
     public static void indicativeTests() throws FileNotFoundException, IOException, CloneNotSupportedException {
@@ -63,7 +65,7 @@ public class TimeMeasurements {
     }
 
     public static void test() throws FileNotFoundException, FileNotFoundException, IOException, CloneNotSupportedException {
-        CSV csv = new CSV("input\\test\\cretanEr.csv", ",", false);
+        CSV csv = new CSV("input\\test\\cities.csv", ",", false);
 
         csv.parse();
         csv.sort(1, SortOrder.REVERSED);
@@ -76,11 +78,28 @@ public class TimeMeasurements {
         System.out.println(csv);
     }
 
-    public static void comparisons() throws FileNotFoundException, IOException {
-        CSV csv = new CSV("input\\test\\cretanEr.csv", ",", false);
+    public static void comparisons() throws FileNotFoundException, IOException, CloneNotSupportedException {
+        CSV csv = new CSV("input\\test\\companies.csv", ",", true);
         csv.parse();
-        csv.sort(8, SortOrder.REVERSED, SortType.NUMERIC);
+        //csv.sort(1, SortOrder.REVERSED, SortType.NUMERIC);
+        //csv.selectColumns(1, 1);
+        //csv.selectRows(0, 9);
+
+        //CSV c1 = CSVFactory.selectCSVRowFactory(csv, 0, 10);
+        //CSV c2 = CSVFactory.selectCSVColumnFactory(csv, 0, 1);
+        //CSV c3 = CSVFactory.selectCSVColumnRowFactory(csv, 0, 1, 0, 10);
+        CSV c4 = CSVFactory.selectCSVRowsByValueFactory(csv, 1, "Retail");
+
         csv.toFile("sorted.csv");
+        System.out.println(c4);
+    }
+
+    public static void completeTest() throws FileNotFoundException, IOException {
+        CSV csv = new CSV("input\\test\\companies.csv", ",", true);
+        csv.parse();
+        csv.sort(1, SortOrder.NORMAL, SortType.ALPHABETIC);
+        
+        csv.toFile("out.csv");
         System.out.println(csv);
     }
 }

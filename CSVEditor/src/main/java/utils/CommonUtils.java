@@ -29,12 +29,12 @@ public class CommonUtils {
         Iterator mpIt = mp.entrySet().iterator();
         while (mpIt.hasNext()) {
             Map.Entry mapElement = (Map.Entry) mpIt.next();
-            //int marks = ( mapElement.getValue() + 10);
-            ArrayList<CSVLine>csvLine = (ArrayList<CSVLine>) mapElement.getValue();
-            System.out.println("======"+mapElement.getKey() + "======");
-            for(CSVLine cc : csvLine){
+            ArrayList<CSVLine> csvLine = (ArrayList<CSVLine>) mapElement.getValue();
+            System.out.println("======" + mapElement.getKey() + "======");
+            for (CSVLine cc : csvLine) {
                 System.out.print(cc);
             }
         }
     }
+    
 }

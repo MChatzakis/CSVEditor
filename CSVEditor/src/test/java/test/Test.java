@@ -34,15 +34,9 @@ public class Test {
 
         //csv.toFile();
         //System.out.println(csv);
-        CSV c1 = csv.selectRows(0, 10);
-        CSV c2 = csv.selectColumns(0, 1);
-        CSV c3 = csv.selectColumnsRows(0, 10, 0, 1);
-
-        System.out.println(c1);
-        System.out.println("=================");
-        // System.out.println(c2);
-        System.out.println("=================");
-        System.out.println(c3);
+        csv.selectRows(0, 10);
+        csv.selectColumns(0, 1);
+        csv.selectColumnsRows(0, 10, 0, 1);
 
     }
 }

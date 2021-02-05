@@ -23,7 +23,7 @@ public class CSVFactory {
         return newCsv;
     }
 
-    public static CSV selectCSVColumnRowFactory(CSV csv, int columnFrom, int columnTo, int rowTo, int rowFrom) throws CloneNotSupportedException {
+    public static CSV selectCSVColumnRowFactory(CSV csv, int columnFrom, int columnTo, int rowFrom, int rowTo) throws CloneNotSupportedException {
         CSV newCsv = (CSV) csv.clone();
         newCsv.selectColumnsRows(rowFrom, rowTo, columnFrom, columnTo);
         return newCsv;
