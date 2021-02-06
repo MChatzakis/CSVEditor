@@ -252,7 +252,7 @@ public class CSV implements Cloneable {
         for (CSVLine line : parsedLines) {
             int curSize = line.getLine().size();
             for (int i = 0; i < (maxSize - curSize); i++) {
-                line.insertItem(" ");
+                line.insertItem("");
             }
         }
     }

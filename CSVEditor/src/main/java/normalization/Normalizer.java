@@ -5,9 +5,6 @@
  */
 package normalization;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author manos
@@ -30,13 +27,9 @@ public class Normalizer {
     public double normalizeValue(double value) {
         return ((value - min) / (max - min)) * (normalizedMax - normalizedMin) + normalizedMin;
     }
-    
-    public static double sigmoid(double x){
-        return 1/(1+ (1/Math.exp(x)));
+
+    public static double sigmoid(double x) {
+        return 1 / (1 + (1 / Math.exp(x)));
     }
-    
-    public static void main(String [] args){
-        System.out.println(sigmoid(5));
-    }
-  
-   }
+
+}

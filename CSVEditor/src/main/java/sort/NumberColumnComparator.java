@@ -34,7 +34,7 @@ public class NumberColumnComparator implements Comparator<CSVLine>{
         String strLineB = lineB.getLine().get(column);
    
         if(!CommonUtils.isNumeric(strLineA) && !CommonUtils.isNumeric(strLineB)){
-            return 1;
+            return 0;
         }
         
         if(!CommonUtils.isNumeric(strLineA)){
