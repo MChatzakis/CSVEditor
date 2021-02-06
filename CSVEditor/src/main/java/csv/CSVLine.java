@@ -22,6 +22,26 @@ public class CSVLine {
         line.add(str);
     }
 
+    public void selectColumns(int from, int to){
+        ArrayList<String> selected = new ArrayList<>();
+        for (int i = from; i <= to; i++) {
+            selected.add(line.get(i));
+            if (i >= line.size() - 1) {
+                break;
+            }
+        }
+        line = selected;
+    }
+    
+    public void selectColumns(int [] columns){
+        ArrayList<String> selected = new ArrayList<>();
+        for (int i = 0; i < columns.length; i++) {
+            int col = columns[i];
+            selected.add(line.get(col));
+        }
+        line = selected;
+    }
+    
     public ArrayList<String> getColumns(int from, int to) {
         ArrayList<String> selected = new ArrayList<>();
         for (int i = from; i <= to; i++) {

@@ -32,9 +32,6 @@ public class CompleteTest {
         CSV csv2 = CSVFactory.selectCSVRowsByValueFactory(csv, 1, "1989");
         csv2.toFile("output\\out2.csv");
         
-        String lala = "LALA,MANOS,,,,,NIKOS";
-        String [] tt = lala.split(",");
-        System.out.println(tt.length);
     }
     
 }

@@ -19,24 +19,26 @@ public class Test {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
 
-        CSV csv = new CSV("input\\companies.csv", ",",true);
+        CSV csv = new CSV("input\\test\\companies.csv", ",",true);
 
-        csv.toFile();
+        //csv.toFile();
         /* Updates the initial file with the current csv object data */
-        csv.toFile("new_path\\filename.csv");
+        //csv.toFile("new_path\\filename.csv");
         /* Creates new file and saves the current csv object data */
 
         csv.parse();
-        csv.sort(2, SortOrder.REVERSED);
+        //csv.sort(2, SortOrder.REVERSED);
         //CSV csv1 = csv.selectColumnsBy(1, "Retail");
         //System.out.println(csv1);
-        CommonUtils.printMapOfArraylist(csv.groupCSVByColumn(1));
+        //CommonUtils.printMapOfArraylist(csv.groupCSVByColumn(1));
 
         //csv.toFile();
         //System.out.println(csv);
-        csv.selectRows(0, 10);
-        csv.selectColumns(0, 1);
-        csv.selectColumnsRows(0, 10, 0, 1);
-
+        //csv.selectRows(0, 10);
+        //csv.selectColumns(0, 1);
+        //csv.selectColumnsRows(0, 10, 0, 1);
+        int [] cols = {0,2};
+        csv.selectColumns(cols);
+        csv.toFile("tt.csv");
     }
 }
