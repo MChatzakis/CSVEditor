@@ -6,17 +6,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import javafx.util.Pair;
 
 import lombok.Data;
+
 import sort.NumberColumnComparator;
 import sort.SortOrder;
 import sort.SortType;
 import sort.StringColumnComparator;
+
 import utils.CommonUtils;
 
 /**
@@ -217,12 +221,12 @@ public class CSV implements Cloneable {
         int biggestLineSize = 0;
         for (String line : rawLines) {
 
-            String[] prsLine = line.split(regex);
+            String[] prsLine = line.split(regex,-1);
 
             //for patch
-            if (biggestLineSize <= prsLine.length) {
+           /* if (biggestLineSize <= prsLine.length) {
                 biggestLineSize = prsLine.length;
-            }
+            }*/
 
             CSVLine csvLine = new CSVLine();
 
@@ -243,7 +247,7 @@ public class CSV implements Cloneable {
             counter++;
         }
 
-        patchLines(biggestLineSize);
+        //patchLines(biggestLineSize);
 
         return parsedLines;
     }

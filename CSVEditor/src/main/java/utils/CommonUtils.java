@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import csv.CSVLine;
+import java.io.File;
 
 /**
  * Class to hold multiple methods used from all packets
@@ -35,6 +36,19 @@ public class CommonUtils {
                 System.out.print(cc);
             }
         }
+    }
+
+    public static File[] getFilesOfDirectory(String directory) {
+        File path = new File(directory); //
+
+        if (!path.exists()) {
+            System.out.println("Wrong directory given!");
+            return null;
+        }
+
+        File[] files = path.listFiles();
+      
+        return files;
     }
 
     public static String getSpaces(int num) {
