@@ -95,11 +95,8 @@ public class TimeMeasurements {
     }
 
     public static void completeTest() throws FileNotFoundException, IOException {
-        CSV csv = new CSV("input\\test\\companies.csv", ",", true);
+        CSV csv = new CSV("input\\test\\cretanEr.csv", ",", true);
         csv.parse();
-        csv.sort(1, SortOrder.NORMAL, SortType.ALPHABETIC);
-        
-        csv.toFile("out.csv");
-        System.out.println(csv);
+        csv.toFile("nope.csv");
     }
 }

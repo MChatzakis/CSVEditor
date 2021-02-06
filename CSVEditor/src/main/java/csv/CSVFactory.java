@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package csv;
 
 /**
@@ -17,9 +12,21 @@ public class CSVFactory {
         return newCsv;
     }
 
+    public static CSV selectCSVColumnFactory(CSV csv, int[] columns) throws CloneNotSupportedException {
+        CSV newCsv = (CSV) csv.clone();
+        newCsv.selectColumns(columns);
+        return newCsv;
+    }
+
     public static CSV selectCSVRowFactory(CSV csv, int from, int to) throws CloneNotSupportedException {
         CSV newCsv = (CSV) csv.clone();
         newCsv.selectRows(from, to);
+        return newCsv;
+    }
+
+    public static CSV selectCSVRowFactory(CSV csv, int[] columns) throws CloneNotSupportedException {
+        CSV newCsv = (CSV) csv.clone();
+        newCsv.selectRows(columns);
         return newCsv;
     }
 

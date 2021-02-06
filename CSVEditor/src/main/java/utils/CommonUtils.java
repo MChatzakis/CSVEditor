@@ -36,5 +36,13 @@ public class CommonUtils {
             }
         }
     }
-    
+
+    public static String getSpaces(int num) {
+        String out = "";
+        for (int i = 0; i < num; i++) {
+            out += " ";
+        }
+        return out;
+    }
+
 }

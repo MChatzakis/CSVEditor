@@ -36,6 +36,8 @@ public class CSV implements Cloneable {
 
     private CSVLine header;
 
+    private int maxCharacters;
+    
     private Pair<Integer, Integer> columnFromTo;
     private Pair<Integer, Integer> rowFromTo;
 
@@ -48,8 +50,9 @@ public class CSV implements Cloneable {
         this.filepath = filepath;
         this.regex = regex;
         this.hasHeader = hasHeader;
+        
         this.isSelectingSpecific = false;
-
+        this.maxCharacters = 0;
         this.rowFromTo = new Pair<Integer, Integer>(0, 0);
         this.columnFromTo = new Pair<Integer, Integer>(0, 0);
 
@@ -68,7 +71,9 @@ public class CSV implements Cloneable {
 
         this.rowFromTo = new Pair<Integer, Integer>(rowFrom, rowTo);
         this.columnFromTo = new Pair<Integer, Integer>(columnFrom, columnTo);
+        
         this.isSelectingSpecific = true;
+        this.maxCharacters = 0;
 
         csvFile = new File(filepath);
 
@@ -93,24 +98,46 @@ public class CSV implements Cloneable {
     public void selectRows(int from, int to) {
         ArrayList<CSVLine> selected = new ArrayList<>();
 
-        for (int i = 0; i < parsedLines.size(); i++) {
+        for (int i = from; i <= to; i++) {
+            selected.add(parsedLines.get(i));
 
-            if (i >= from && i <= to) {
-                selected.add(parsedLines.get(i));
-            }
-            if (i >= to) {
+            if (i >= parsedLines.size() - 1) {
                 break;
             }
         }
+
+        this.setParsedLines(selected);
+    }
+
+    public void selectRows(int[] columns) {
+        ArrayList<CSVLine> selected = new ArrayList<>();
+
+        for (int i = 0; i < columns.length; i++) {
+            int col = columns[i];
+            selected.add(parsedLines.get(col));
+        }
+
         this.setParsedLines(selected);
     }
 
     public void selectColumns(int from, int to) {
         ArrayList<CSVLine> selected = new ArrayList<>();
-
+        header.getColumns(from, to);     
         for (int i = 0; i < parsedLines.size(); i++) {
             CSVLine line = new CSVLine();
             line.setLine(parsedLines.get(i).getColumns(from, to));
+            selected.add(line);
+        }
+
+        this.setParsedLines(selected);
+    }
+
+    public void selectColumns(int[] columns) {
+        ArrayList<CSVLine> selected = new ArrayList<>();
+        header.getColumns(columns);
+        for (int i = 0; i < parsedLines.size(); i++) {
+            CSVLine line = new CSVLine();
+            line.setLine(parsedLines.get(i).getColumns(columns));
             selected.add(line);
         }
 
@@ -192,6 +219,9 @@ public class CSV implements Cloneable {
             CSVLine csvLine = new CSVLine();
 
             for (int i = 0; i < prsLine.length; i++) {
+                if(prsLine[i].length() >= maxCharacters){
+                    maxCharacters = prsLine[i].length(); 
+                }
                 csvLine.insertItem(prsLine[i]);
             }
 
@@ -278,7 +308,14 @@ public class CSV implements Cloneable {
 
     public Double getSumOfColumn(int column) {
         Double sum = 0.0;
-       
+        for (CSVLine line : parsedLines) {
+            String cl = line.getLine().get(column);
+            Double d = 0.0;
+            if (CommonUtils.isNumeric(cl)) {
+                d = Double.parseDouble(cl);
+            }
+            sum += d;
+        }
         return sum;
     }
 
@@ -342,8 +379,8 @@ public class CSV implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-    
-     /*public static Person max(Person x, Person y) {
+
+    /*public static Person max(Person x, Person y) {
         return x.getAge() > y.getAge() ? x : y;
     }*/
 }
