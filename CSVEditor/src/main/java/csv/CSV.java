@@ -126,7 +126,9 @@ public class CSV implements Cloneable {
 
     public void selectColumns(int from, int to) {
         ArrayList<CSVLine> selected = new ArrayList<>();
-        header.selectColumns(from, to);
+        if (header != null) {
+            header.selectColumns(from, to);
+        }
         for (int i = 0; i < parsedLines.size(); i++) {
             CSVLine line = new CSVLine();
             line.setLine(parsedLines.get(i).getColumns(from, to));
@@ -342,23 +344,31 @@ public class CSV implements Cloneable {
 
     public String[][] to2DArray() {
         int rows = parsedLines.size();
-        
+
         if (header != null) {
             rows++;
         }
-        
+
         int columns = parsedLines.get(0).getLine().size();
         String[][] csvArr = new String[rows][columns];
 
         if (header != null) {
-            for(int i=0; i<header.getLine().size(); i++){
+            for (int i = 0; i < header.getLine().size(); i++) {
                 csvArr[0][i] = header.getLine().get(i);
             }
         }
 
+        int currIndex = 0;
+        
         for (int i = 0; i < parsedLines.size(); i++) {
             for (int k = 0; k < parsedLines.get(0).getLine().size(); k++) {
-                csvArr[i][k] = parsedLines.get(i).getLine().get(k);
+                if(header != null){
+                    currIndex = i + 1;
+                }
+                else{
+                    currIndex = i;
+                }
+                csvArr[currIndex][k] = parsedLines.get(i).getLine().get(k);
             }
         }
 
