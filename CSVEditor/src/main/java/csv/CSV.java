@@ -221,13 +221,12 @@ public class CSV implements Cloneable {
         int biggestLineSize = 0;
         for (String line : rawLines) {
 
-            String[] prsLine = line.split(regex,-1);
+            String[] prsLine = line.split(regex, -1);
 
             //for patch
-           /* if (biggestLineSize <= prsLine.length) {
+            if (biggestLineSize <= prsLine.length) {
                 biggestLineSize = prsLine.length;
-            }*/
-
+            }
             CSVLine csvLine = new CSVLine();
 
             for (int i = 0; i < prsLine.length; i++) {
@@ -247,8 +246,7 @@ public class CSV implements Cloneable {
             counter++;
         }
 
-        //patchLines(biggestLineSize);
-
+        patchLines(biggestLineSize);
         return parsedLines;
     }
 
@@ -340,6 +338,31 @@ public class CSV implements Cloneable {
             sum += d;
         }
         return sum;
+    }
+
+    public String[][] to2DArray() {
+        int rows = parsedLines.size();
+        
+        if (header != null) {
+            rows++;
+        }
+        
+        int columns = parsedLines.get(0).getLine().size();
+        String[][] csvArr = new String[rows][columns];
+
+        if (header != null) {
+            for(int i=0; i<header.getLine().size(); i++){
+                csvArr[0][i] = header.getLine().get(i);
+            }
+        }
+
+        for (int i = 0; i < parsedLines.size(); i++) {
+            for (int k = 0; k < parsedLines.get(0).getLine().size(); k++) {
+                csvArr[i][k] = parsedLines.get(i).getLine().get(k);
+            }
+        }
+
+        return csvArr;
     }
 
     public CSVLine getRow(int row) {

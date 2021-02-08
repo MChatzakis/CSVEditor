@@ -8,7 +8,7 @@ package test;
 import csv.CSV;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import utils.CommonUtils;
 
@@ -16,10 +16,19 @@ import utils.CommonUtils;
  *
  * @author manos
  */
-public class ParsingTest {
+public class StandardTesting {
 
-    public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
+    public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+        
+        long estimatedTime = System.currentTimeMillis() - startTime;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(estimatedTime);
+        
+        System.out.println("Milliseconds: " + estimatedTime + " ms");
+        System.out.println("Seconds: " + seconds + " s");
+    }
 
+    public static void parsingTest() throws FileNotFoundException, Exception {
         File[] testFiles = CommonUtils.getFilesOfDirectory("input\\test\\withHeaders");
         for (int i = 0; i < testFiles.length; i++) {
             CSV csv = new CSV(testFiles[i].getAbsolutePath(), ",", true);
