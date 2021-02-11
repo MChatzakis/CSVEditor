@@ -15,6 +15,7 @@ import java.util.Map;
 import javafx.util.Pair;
 
 import lombok.Data;
+import normalization.Normalizer;
 
 import sort.NumberColumnComparator;
 import sort.SortOrder;
@@ -292,6 +293,19 @@ public class CSV implements Cloneable {
         }
     }
 
+    public ArrayList<Integer> getColumnNormalizedAsInt(int column, double normMin, double normMax, double realMin, double realMax){
+        ArrayList<Integer>ints = new ArrayList<>();
+        Normalizer norm = new Normalizer( realMin, realMax,  normMin, normMax);
+        for (CSVLine line : parsedLines) {
+            //int num = Integer.parseInt(line.getLine().get(column));
+            double num = Double.parseDouble(line.getLine().get(column));
+            ints.add((int)Math.round(norm.normalizeValue(num)));
+            //ints.add(num);
+        }
+        
+        return ints;
+    }
+    
     public ArrayList<Integer> getColumnAsInt(int column) {
         ArrayList<Integer> ints = new ArrayList<>();
 
@@ -435,4 +449,7 @@ public class CSV implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+    
+    
+    
 }
