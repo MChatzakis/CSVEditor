@@ -23,24 +23,25 @@ import utils.CommonUtils;
 public class StandardTesting {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        /*long startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
 
         CSVPrinter printer = new CSVPrinter();
         CSV csv = new CSV("input\\test\\withoutHeaders\\cities.csv", ",", false);
         csv.parse();
-        csv.sort(1, SortOrder.NORMAL, SortType.NUMERIC);
-        csv.selectColumns(0, 0);
-        System.out.println(printer.getCSVRepresentation(csv));
+        csv.sort(0, SortOrder.REVERSED, SortType.ALPHABETIC);
+        //csv.selectColumns(0, 0);
 
+        System.out.println(printer.getCSVRepresentation(csv));
+        
         long estimatedTime = System.currentTimeMillis() - startTime;
         long seconds = TimeUnit.MILLISECONDS.toSeconds(estimatedTime);
 
         System.out.println("Milliseconds: " + estimatedTime + " ms");
-        System.out.println("Seconds: " + seconds + " s");*/
-
+        System.out.println("Seconds: " + seconds + " s");
+        /*
         //cospiEvaluations();
         System.out.println(get(10.0));
-        System.out.println(get(12.3));
+        System.out.println(get(12.3));*/
     }
 
     public static Number get(Double n) {
