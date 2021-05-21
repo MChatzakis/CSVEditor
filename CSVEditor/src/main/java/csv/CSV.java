@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +43,7 @@ public class CSV implements Cloneable {
     private ArrayList<CSVLine> parsedLines;
 
     private CSVLine header;
+    private InputStream stream;
 
     private int maxCharacters;
 
@@ -48,6 +52,20 @@ public class CSV implements Cloneable {
 
     private boolean isSelectingSpecific;
     private boolean hasHeader;
+
+    public CSV(InputStream stream, String regex, boolean hasHeader) throws FileNotFoundException {
+        parsedLines = new ArrayList<>();
+
+        this.regex = regex;
+        this.hasHeader = hasHeader;
+
+        this.isSelectingSpecific = false;
+        this.maxCharacters = 0;
+        this.rowFromTo = new Pair<Integer, Integer>(0, 0);
+        this.columnFromTo = new Pair<Integer, Integer>(0, 0);
+
+        this.stream = stream;
+    }
 
     public CSV(String filepath, String regex, boolean hasHeader) throws FileNotFoundException {
         parsedLines = new ArrayList<>();
@@ -98,6 +116,58 @@ public class CSV implements Cloneable {
             }
         }
         return rawLines;
+    }
+
+    private ArrayList<String> readInStream() throws IOException {
+        ArrayList<String> rawLines = new ArrayList<>();
+        int counter = 0;
+        try (InputStreamReader streamReader = new InputStreamReader(this.stream, StandardCharsets.UTF_8); BufferedReader reader = new BufferedReader(streamReader)) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                rawLines.add(line);
+                counter++;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return rawLines;
+    }
+
+    public ArrayList<CSVLine> parseInStream() throws IOException {
+        ArrayList<String> rawLines = readInStream();
+        int counter = 0;
+        int biggestLineSize = 0;
+        for (String line : rawLines) {
+
+            String[] prsLine = line.split(regex, -1);
+
+            //for patch
+            if (biggestLineSize <= prsLine.length) {
+                biggestLineSize = prsLine.length;
+            }
+            CSVLine csvLine = new CSVLine();
+
+            for (int i = 0; i < prsLine.length; i++) {
+
+                /*if(prsLine[i].length() >= maxCharacters){
+                    maxCharacters = prsLine[i].length(); 
+                }*/
+                csvLine.insertItem(prsLine[i]);
+            }
+
+            if (hasHeader && counter == 0) {
+                header = csvLine;
+            } else {
+                parsedLines.add(csvLine);
+            }
+
+            counter++;
+        }
+
+        patchLines(biggestLineSize);
+        return parsedLines;
     }
 
     public void selectRows(int from, int to) {
@@ -293,19 +363,19 @@ public class CSV implements Cloneable {
         }
     }
 
-    public ArrayList<Integer> getColumnNormalizedAsInt(int column, double normMin, double normMax, double realMin, double realMax){
-        ArrayList<Integer>ints = new ArrayList<>();
-        Normalizer norm = new Normalizer( realMin, realMax,  normMin, normMax);
+    public ArrayList<Integer> getColumnNormalizedAsInt(int column, double normMin, double normMax, double realMin, double realMax) {
+        ArrayList<Integer> ints = new ArrayList<>();
+        Normalizer norm = new Normalizer(realMin, realMax, normMin, normMax);
         for (CSVLine line : parsedLines) {
             //int num = Integer.parseInt(line.getLine().get(column));
             double num = Double.parseDouble(line.getLine().get(column));
-            ints.add((int)Math.round(norm.normalizeValue(num)));
+            ints.add((int) Math.round(norm.normalizeValue(num)));
             //ints.add(num);
         }
-        
+
         return ints;
     }
-    
+
     public ArrayList<Integer> getColumnAsInt(int column) {
         ArrayList<Integer> ints = new ArrayList<>();
 
@@ -373,13 +443,12 @@ public class CSV implements Cloneable {
         }
 
         int currIndex = 0;
-        
+
         for (int i = 0; i < parsedLines.size(); i++) {
             for (int k = 0; k < parsedLines.get(0).getLine().size(); k++) {
-                if(header != null){
+                if (header != null) {
                     currIndex = i + 1;
-                }
-                else{
+                } else {
                     currIndex = i;
                 }
                 csvArr[currIndex][k] = parsedLines.get(i).getLine().get(k);
@@ -449,7 +518,5 @@ public class CSV implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-    
-    
-    
+
 }
