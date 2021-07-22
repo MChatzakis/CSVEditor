@@ -71,3 +71,5 @@ System.out.println(prettyOutput);
 
 This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for details.
 
+
+Copyright 2020, FOUNDATION FOR RESEARCH & TECHNOLOGY - HELLAS, All rights reserved. 
