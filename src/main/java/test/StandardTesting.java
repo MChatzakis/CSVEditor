@@ -26,6 +26,7 @@ public class StandardTesting {
         long startTime = System.currentTimeMillis();
 
         CSVPrinter printer = new CSVPrinter();
+        
         CSV csv = new CSV("input\\test\\withoutHeaders\\cities.csv", ",", false);
         csv.parse();
         csv.sort(0, SortOrder.REVERSED, SortType.ALPHABETIC);
