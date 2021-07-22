@@ -1,7 +1,6 @@
 # CSVEditor
 
 CSVEditor is a lightweight library with purpose to be used as an efficient data extraction tool for CSV files.
-This project is still under construction.
 
 ## Getting Started
 
