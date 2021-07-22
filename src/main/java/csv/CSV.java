@@ -86,7 +86,7 @@ public class CSV implements Cloneable {
         }
     }
 
-    public CSV(String filepath, String regex, int columnFrom, int columnTo, int rowFrom, int rowTo) throws FileNotFoundException {
+    /*public CSV(String filepath, String regex, int columnFrom, int columnTo, int rowFrom, int rowTo) throws FileNotFoundException {
         parsedLines = new ArrayList<>();
 
         this.filepath = filepath;
@@ -103,7 +103,7 @@ public class CSV implements Cloneable {
         if (!csvFile.exists()) {
             throw new FileNotFoundException("The file given does not exist!");
         }
-    }
+    }*/
 
     private ArrayList<String> read() throws IOException {
         ArrayList<String> rawLines = new ArrayList<>();
