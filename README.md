@@ -8,6 +8,28 @@ To use this library, make sure that your machine fulfills the following prerequi
 * [Maven](https://maven.apache.org/) - Dependency Management 
 
 ## Download
+### Without Maven
+To use this library without Maven, you can download this project directly and add it as a dependency to your project using your IDE.
+### Maven
+Add the following to your pom.xml file:
+``` xml
+<repositories>
+  <repository>
+    <id>FORTH-ISL-snapshots</id>
+    <name>FORTH ISL Nexus repository - Snapshots</name>
+    <url>https://isl.ics.forth.gr/maven-snapshots/</url>
+  </repository>
+</repositories>
+
+<dependencies>
+  <dependency>
+    <groupId>gr.forth.ics.isl</groupId>
+    <artifactId>CSVEditor</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <type>jar</type>
+  </dependency>
+</dependencies>
+```
 
 ## Usage
 
