@@ -33,6 +33,25 @@ Add the following to your pom.xml file:
 
 ## Usage
 
+### Useful Methods:
+``` java
+CSV(InputStream stream, String regex, boolean hasHeader) throws FileNotFoundException {...}
+CSV(String filepath, String regex, boolean hasHeader) throws FileNotFoundException {...}
+```
+
+### Example:
+``` java
+CSV csv = new CSV(input\\test\\withoutHeaders\\cities.csv, ",", false);
+csv.parse();
+csv.sort(0, SortOrder.REVERSED, SortType.ALPHABETIC);
+
+CSVPrinter printer = new CSVPrinter();
+String prettyOutput = printer.getCSVRepresentation(csv);
+
+System.out.println(prettyOutput);
+```
+
+
 ## License
 
 This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for details.
