@@ -35,8 +35,23 @@ Add the following to your pom.xml file:
 
 ### Useful Methods:
 ``` java
-CSV(InputStream stream, String regex, boolean hasHeader) throws FileNotFoundException {...}
-CSV(String filepath, String regex, boolean hasHeader) throws FileNotFoundException {...}
+/* Constructors */
+CSV(InputStream stream, String regex, boolean hasHeader) throws FileNotFoundException { ... }
+CSV(String filepath, String regex, boolean hasHeader) throws FileNotFoundException { ... }
+
+/* Parsing */
+ArrayList<CSVLine> parse() throws IOException { ... }
+
+/* Sorting */
+void sort(int compareColumn, SortOrder so, SortType st) { ... }
+
+/* Data Extraction */
+Map<String, ArrayList<CSVLine>> groupCSVByColumn(int column) { ... }
+ArrayList< {String, double, int} > getColumnAs{String, double, int}(int column) { ... }
+
+/* Factories */
+static CSV selectCSVColumnFactory(CSV csv, int[] columns) { ... }
+static CSV selectCSVRowFactory(CSV csv, int[] columns) { ... }
 ```
 
 ### Example:
