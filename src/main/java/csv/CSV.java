@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.util.Pair;
+//import javafx.util.Pair;
 
 import lombok.Data;
 import normalization.Normalizer;
@@ -47,8 +47,8 @@ public class CSV implements Cloneable {
 
     private int maxCharacters;
 
-    private Pair<Integer, Integer> columnFromTo;
-    private Pair<Integer, Integer> rowFromTo;
+    //private Pair<Integer, Integer> columnFromTo;
+    //private Pair<Integer, Integer> rowFromTo;
 
     private boolean isSelectingSpecific;
     private boolean hasHeader;
@@ -61,8 +61,8 @@ public class CSV implements Cloneable {
 
         this.isSelectingSpecific = false;
         this.maxCharacters = 0;
-        this.rowFromTo = new Pair<Integer, Integer>(0, 0);
-        this.columnFromTo = new Pair<Integer, Integer>(0, 0);
+        //this.rowFromTo = new Pair<Integer, Integer>(0, 0);
+        //this.columnFromTo = new Pair<Integer, Integer>(0, 0);
 
         this.stream = stream;
     }
@@ -76,8 +76,8 @@ public class CSV implements Cloneable {
 
         this.isSelectingSpecific = false;
         this.maxCharacters = 0;
-        this.rowFromTo = new Pair<Integer, Integer>(0, 0);
-        this.columnFromTo = new Pair<Integer, Integer>(0, 0);
+        //this.rowFromTo = new Pair<Integer, Integer>(0, 0);
+        //this.columnFromTo = new Pair<Integer, Integer>(0, 0);
 
         csvFile = new File(filepath);
 
@@ -92,8 +92,8 @@ public class CSV implements Cloneable {
         this.filepath = filepath;
         this.regex = regex;
 
-        this.rowFromTo = new Pair<Integer, Integer>(rowFrom, rowTo);
-        this.columnFromTo = new Pair<Integer, Integer>(columnFrom, columnTo);
+        //this.rowFromTo = new Pair<Integer, Integer>(rowFrom, rowTo);
+        //this.columnFromTo = new Pair<Integer, Integer>(columnFrom, columnTo);
 
         this.isSelectingSpecific = true;
         this.maxCharacters = 0;
