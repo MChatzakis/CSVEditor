@@ -54,24 +54,6 @@ static CSV selectCSVColumnFactory(CSV csv, int[] columns) { ... }
 static CSV selectCSVRowFactory(CSV csv, int[] columns) { ... }
 ```
 
-### Useful Methods
-<table>
-   <thead>
-      <tr>
-         <th>Header1</th>
-      </tr>
-   </thead>
-   <tbody>
-      <tr>
-         <td>data1</td>  
-      </tr>
-      <tr>
-         <td>data11</td>
-      </tr>
-   </tbody>
-</table>
-
-
 ### Example:
 ``` java
 CSV csv = new CSV(input\\test\\withoutHeaders\\cities.csv, ",", false);
