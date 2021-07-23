@@ -59,7 +59,6 @@ static CSV selectCSVRowFactory(CSV csv, int[] columns) { ... }
    <thead>
       <tr>
          <th>Header1</th>
-         
       </tr>
    </thead>
    <tbody>
@@ -68,7 +67,6 @@ static CSV selectCSVRowFactory(CSV csv, int[] columns) { ... }
       </tr>
       <tr>
          <td>data11</td>
-
       </tr>
    </tbody>
 </table>
