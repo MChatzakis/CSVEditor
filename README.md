@@ -50,8 +50,12 @@ Map<String, ArrayList<CSVLine>> groupCSVByColumn(int column) { ... }
 ArrayList< {String, double, int} > getColumnAs{String, double, int}(int column) { ... }
 
 /* Factories */
-static CSV selectCSVColumnFactory(CSV csv, int[] columns) { ... }
-static CSV selectCSVRowFactory(CSV csv, int[] columns) { ... }
+static CSV selectCSVColumnFactory(CSV csv, int[] columns) throws CloneNotSupportedException { ... }
+static CSV selectCSVColumnFactory(CSV csv, int from, int to) throws CloneNotSupportedException { ... }
+
+static CSV selectCSVRowFactory(CSV csv, int from, int to) throws CloneNotSupportedException { ... }
+static CSV selectCSVRowFactory(CSV csv, int[] columns) throws CloneNotSupportedException { ... }
+
 ```
 
 ### Example:
